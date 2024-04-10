@@ -1,0 +1,52 @@
+<html>
+    <title>
+        PVR Trust
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <body>
+        <h1>
+            PVR Trust
+        </h1>
+        <p>
+            This is the official website of PVR Trust.
+        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="chat_container">
+                        <div class="job-box">
+                            <div class="inbox-message">
+                                <ul id="message-list">
+                                    <!-- List items will be added dynamically here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const messageList = document.getElementById('message-list');
+                data.forEach(message => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <a href="#">
+                            <div class="message-body">
+                                <div class="message-body-heading">
+                                    <h5>${message.sender}</h5>
+                                    <span class="time">${message.time}</span>
+                                </div>
+                                <p>${message.content}</p>
+                            </div>
+                        </a>
+                    `;
+                    messageList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</html>
